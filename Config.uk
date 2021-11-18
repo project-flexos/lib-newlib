@@ -1,8 +1,3 @@
-# hidden
-config LIBNEWLIBM
-	bool
-	default n
-
 menuconfig LIBNEWLIBC
 	bool "libnewlib - A C standard library"
 	default n
@@ -15,6 +10,11 @@ menuconfig LIBNEWLIBC
 	select LIBPOSIX_PROCESS
 	select LIBPOSIX_USER
 	select FPSIMD if ARCH_ARM_64
+
+# hidden
+config LIBNEWLIBM
+	bool
+	default n
 
 if LIBNEWLIBC
 	config LIBNEWLIBC_WANT_IO_C99_FORMATS

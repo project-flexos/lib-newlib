@@ -39,12 +39,15 @@
 #include <sys/stat.h>
 #include <uk/essentials.h>
 #include <uk/print.h>
+#include <flexos/isolation.h>
 
 int isatty(int fd)
 {
-	struct stat buf;
+	struct stat buf __attribute__((flexos_whitelist));
+	int ret;
+	flexos_gate_r(libvfscore, ret, fstat, fd, &buf);
 
-	if (fstat(fd, &buf) < 0) {
+	if (ret < 0) {
 		errno = EBADF;
 		return 0;
 	}
